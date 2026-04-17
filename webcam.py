@@ -3,16 +3,14 @@ import torch
 from PIL import Image
 from transformers import ViTForImageClassification, ViTImageProcessor
 
-model_dir = "C:/Users/User/Downloads/VAS Project/Prototype 1 - Acne Classification/Trained Model" #Path to model
-
-class_names = ['clear_skin', 'mild_acne', 'severe_acne'] 
-
-#Retrieve model
-model = ViTForImageClassification.from_pretrained(model_dir)
+model_id = "shinni06/Acne_Severity_Detection"
+model = ViTForImageClassification.from_pretrained(model_id)
 model.eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
-image_processor = ViTImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k")
+image_processor = ViTImageProcessor.from_pretrained(model_id)
+
+class_names = ['clear_skin', 'mild_acne', 'severe_acne'] 
 
 #Start webcam
 cap = cv2.VideoCapture(0)

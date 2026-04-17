@@ -8,12 +8,14 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from transformers import ViTImageProcessor
 
-model_dir = "./Trained Model"
 test_dir = "./test"
 
-#Retrieve model
-model = ViTForImageClassification.from_pretrained(model_dir)
-model.eval() #Switch model to evaluation mode
+model_id = "shinni06/Acne_Severity_Detection"
+model = ViTForImageClassification.from_pretrained(model_id)
+model.eval()
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+image_processor = ViTImageProcessor.from_pretrained(model_id)
 
 #Link model to GPU/CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
